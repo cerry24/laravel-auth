@@ -10,7 +10,7 @@
                             <th scope="col">id</th>
                             <th scope="col">title</th>
                             <th scope="col">creation date</th>
-                            <th scope="col"><a class="btn btn-success" href="">add new project</a></th>
+                            <th scope="col"><a class="btn btn-success" href="{{ route('admin.projects.create') }}">add new project</a></th>
                         </tr>
                     </thead>
                     <tbody>
