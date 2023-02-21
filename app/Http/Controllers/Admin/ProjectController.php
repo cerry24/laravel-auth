@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
 {
@@ -67,24 +68,33 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Project $project
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Project $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $data = $request->validate([
+            'title' => ['required', 'string', 'min:5', 'max:40', Rule::unique('projects')->ignore($project->id)],
+            'thumbnail' => 'required|url|min:2',
+            'description' => 'required|string|min:50|max:300',
+            'creation_date' => 'required|date|before_or_equal:today'
+        ]);
+        $data['slug'] = Str::slug($data['title']);
+        $project->update($data);
+
+        return redirect()->route('admin.projects.show', compact('project'));
     }
 
     /**

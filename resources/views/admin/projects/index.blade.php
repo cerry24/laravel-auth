@@ -21,7 +21,7 @@
                             <td>{{ $project->creation_date }}</td>
                             <td>
                                 <a class="btn btn-primary" href="{{ route('admin.projects.show', $project->id) }}">show</a>
-                                <a class="btn btn-warning" href="">edit</a>
+                                <a class="btn btn-warning" href="{{ route('admin.projects.edit', $project->id) }}">edit</a>
                                 <a class="btn btn-danger" href="">delete</a>
                             </td>
                         </tr>
