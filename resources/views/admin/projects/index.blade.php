@@ -22,7 +22,11 @@
                             <td>
                                 <a class="btn btn-primary" href="{{ route('admin.projects.show', $project->id) }}">show</a>
                                 <a class="btn btn-warning" href="{{ route('admin.projects.edit', $project->id) }}">edit</a>
-                                <a class="btn btn-danger" href="">delete</a>
+                                <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" class="d-inline-block element-deleter" data-element-name="{{ $project->title }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">delete</button>
+                                </form>
                             </td>
                         </tr>
                         @empty
@@ -33,4 +37,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    @vite('resources/js/deleteConfermation.js')
 @endsection
