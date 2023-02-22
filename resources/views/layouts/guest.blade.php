@@ -19,7 +19,7 @@
     @vite(['resources/js/app.js'])
 </head>
 
-<body>
+<body class="bg-light">
     <div id="app">
 
 
@@ -83,7 +83,7 @@
             <div class="container-fluid">
                 <div class="row px-5 py-2">
                     <div class="col-12">
-                        {{ $projects->links() }}
+                        @yield('footer-content')
                     </div>
                 </div>
             </div>
