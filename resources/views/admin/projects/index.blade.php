@@ -20,9 +20,9 @@
                             <td>{{ $project->title }}</td>
                             <td>{{ $project->creation_date }}</td>
                             <td>
-                                <a class="btn btn-primary" href="{{ route('admin.projects.show', $project->id) }}">show</a>
-                                <a class="btn btn-warning" href="{{ route('admin.projects.edit', $project->id) }}">edit</a>
-                                <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" class="d-inline-block element-deleter" data-element-name="{{ $project->title }}">
+                                <a class="btn btn-primary" href="{{ route('admin.projects.show', $project->slug) }}">show</a>
+                                <a class="btn btn-warning" href="{{ route('admin.projects.edit', $project->slug) }}">edit</a>
+                                <form action="{{ route('admin.projects.destroy', $project->slug) }}" method="POST" class="d-inline-block element-deleter" data-element-name="{{ $project->title }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">delete</button>

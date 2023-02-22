@@ -10,4 +10,14 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = array('title', 'slug', 'thumbnail', 'description', 'creation_date');
+
+    /**
+    * Get the route key for the model.
+    *
+    * @return string
+    */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
