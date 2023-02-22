@@ -21,7 +21,7 @@ class ProjectsTableSeeder extends Seeder
             $newProject = new Project();
             $newProject->title = $faker->unique()->realTextBetween(5, 40);
             $newProject->slug = Str::slug($newProject->title);
-            $newProject->thumbnail = $faker->imageUrl();
+            $newProject->thumbnail = $faker->imageUrl(550, 300);
             $newProject->description = $faker->realTextBetween(50, 300);
             $newProject->creation_date = $faker->dateTimeThisDecade();
             $newProject->save();
