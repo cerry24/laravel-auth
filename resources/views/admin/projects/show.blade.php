@@ -5,7 +5,11 @@
         <div class="row justify-content-center">
             <div class="col-10">
                 <div class="card mt-3">
-                    <img src="{{ $project->thumbnail }}" class="card-img-top" alt="Project thumbnail">
+                    @if ( str_starts_with($project->thumbnail, 'http'))
+                        <img src="{{ $project->thumbnail }}" class="card-img-top" alt="Project thumbnail">
+                    @else
+                    <img src="{{ asset('storage/' . $project->thumbnail) }}" class="card-img-top" alt="Project thumbnail">
+                    @endif
 
                     <div class="card-body">
                         <h5 class="card-title">{{ $project->title }}</h5>
