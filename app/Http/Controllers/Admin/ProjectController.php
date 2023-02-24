@@ -118,6 +118,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if (!filter_var($project->thumbnail, FILTER_VALIDATE_URL)) {
+            Storage::delete($project->thumbnail);
+        }
         $project->delete();
 
         return redirect()->route('admin.projects.index');
