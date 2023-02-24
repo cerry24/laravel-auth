@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-10">
                 <div class="card mt-3">
-                    @if ( str_starts_with($project->thumbnail, 'http'))
+                    @if ( $project->isThumbnailAUrl())
                         <img src="{{ $project->thumbnail }}" class="card-img-top" alt="Project thumbnail">
                     @else
                     <img src="{{ asset('storage/' . $project->thumbnail) }}" class="card-img-top" alt="Project thumbnail">

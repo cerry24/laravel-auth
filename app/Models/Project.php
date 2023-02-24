@@ -20,4 +20,8 @@ class Project extends Model
     {
         return 'slug';
     }
+
+    public function isThumbnailAUrl() {
+        return filter_var($this->thumbnail, FILTER_VALIDATE_URL);
+    }
 }

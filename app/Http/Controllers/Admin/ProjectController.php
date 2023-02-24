@@ -100,7 +100,7 @@ class ProjectController extends Controller
         ]);
         $data['slug'] = Str::slug($data['title']);
         if ($request->hasFile('thumbnail')) {
-            if (!filter_var($project->thumbnail, FILTER_VALIDATE_URL)) {
+            if (!$project->isThumbnailAUrl()) {
                 Storage::delete($project->thumbnail);
             }
             $data['thumbnail'] = Storage::put('imgs/', $data['thumbnail']);
@@ -118,7 +118,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        if (!filter_var($project->thumbnail, FILTER_VALIDATE_URL)) {
+        if (!$project->isThumbnailAUrl()) {
             Storage::delete($project->thumbnail);
         }
         $project->delete();
