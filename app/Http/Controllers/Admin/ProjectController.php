@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -44,11 +45,12 @@ class ProjectController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|min:5|max:40|unique:projects',
-            'thumbnail' => 'required|url|min:2',
+            'thumbnail' => 'required|image',
             'description' => 'required|string|min:50|max:300',
-            'creation_date' => 'required|date|'
+            'creation_date' => 'required|date'
         ]);
         $data['slug'] = Str::slug($data['title']);
+        $data['thumbnail'] = Storage::put('imgs/', $data['thumbnail']);
         $newProject = new Project();
         $newProject->fill($data);
         $newProject->save();
@@ -92,11 +94,17 @@ class ProjectController extends Controller
     {
         $data = $request->validate([
             'title' => ['required', 'string', 'min:5', 'max:40', Rule::unique('projects')->ignore($project->id)],
-            'thumbnail' => 'required|url|min:2',
+            'thumbnail' => 'required|image',
             'description' => 'required|string|min:50|max:300',
             'creation_date' => 'required|date|before_or_equal:today'
         ]);
         $data['slug'] = Str::slug($data['title']);
+        if ($request->hasFile('thumbnail')) {
+            if (!filter_var($project->thumbnail, FILTER_VALIDATE_URL)) {
+                Storage::delete($project->thumbnail);
+            }
+            $data['thumbnail'] = Storage::put('imgs/', $data['thumbnail']);
+        }
         $project->update($data);
 
         return redirect()->route('admin.projects.show', compact('project'));
